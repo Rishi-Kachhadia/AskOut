@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score & Say Yes!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #034694;
+            color: white;
+        }
+        #logo {
+            width: 120px;
+            margin-top: 20px;
+        }
+        #game-container {
+            position: relative;
+            width: 320px;
+            height: 450px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/6/60/Football_pitch.svg') no-repeat center;
+            background-size: cover;
+            margin: 20px auto;
+            border: 3px solid white;
+            border-radius: 10px;
+        }
+        #ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            left: 135px;
+            cursor: pointer;
+        }
+        #goal {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            top: 10px;
+            left: 100px;
+        }
+        #ask-out {
+            display: none;
+            background-color: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            margin: auto;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        #ask-out h2 {
+            font-size: 28px;
+            color: #034694;
+        }
+        #ask-out p {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #ffcc00;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #034694;
+            color: white;
+        }
+        .btn-no {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <img id="logo" src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" alt="Chelsea Logo">
+    <h1>Score a Goal for Chelsea & Unlock a Surprise!</h1>
+    <div id="game-container">
+        <img id="goal" src="goal.png" alt="Goal">
+        <img id="ball" src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Soccerball.svg" alt="Football">
+    </div>
+    <div id="ask-out">
+        <h2>Goal! ⚽💙</h2>
+        <p>Just like Chelsea, we are destined to be champions together! 🫶🏻 Would you go out with me?</p>
+        <button class="btn" id="yes-btn" onclick="handleYesClick()">YES ❤️</button>
+        <button class="btn btn-no" id="no-btn" onclick="moveNoButton()">NO 💔</button>
+        <p id="counter-msg" style="display:none; font-size: 18px; color: red;"></p>
+    </div>
+    <script>
+        let yesClickCount = 0;
+        
+        document.getElementById("ball").addEventListener("click", function() {
+            let ball = this;
+            ball.style.transition = "all 0.7s ease-in-out";
+            ball.style.transform = "translateY(-320px)";
+            setTimeout(() => {
+                document.getElementById("game-container").style.display = "none";
+                document.getElementById("ask-out").style.display = "block";
+            }, 800);
+        });
+
+        function handleYesClick() {
+            yesClickCount++;
+            let counterMsg = document.getElementById("counter-msg");
+            
+            if (yesClickCount === 1) {
+                counterMsg.innerText = "ITNI AASAANI SE THODI!! You have to press it 20 times. 19 more to go😂";
+                counterMsg.style.display = "block";
+            } else if (yesClickCount < 20) {
+                counterMsg.innerText = `Not yet! ${20 - yesClickCount} more to go! 😂`;
+            } else {
+                alert("Yay! Chalo milte ab Freshers mein🤘✨");
+                counterMsg.style.display = "none";
+            }
+        }
+
+        function moveNoButton() {
+            let noBtn = document.getElementById("no-btn");
+            let x = Math.random() * (window.innerWidth - 150);
+            let y = Math.random() * (window.innerHeight - 150);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+    </script>
+</body>
+</html>
